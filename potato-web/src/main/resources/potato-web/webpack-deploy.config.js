@@ -3,6 +3,12 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var thirdParties = ['react',
+   'react-bootstrap',
+   'react-fontawesome',
+   'axios',
+   'react-websocket'
+];
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -63,7 +69,7 @@ module.exports = { 
    entry: {
       app: './src/index.jsx',
       admin: './src/admin.jsx',
-      vendors: ['react', 'react-bootstrap','react-fontawesome'],
+      vendors: thirdParties,
    },
    output: {
       path: BUILD_DIR,

@@ -3,6 +3,10 @@ import {Button} from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
+import axios from 'axios'
+
+import Websocket from 'react-websocket';
+
 var FontAwesome = require('react-fontawesome');
 
 class App extends Component {
@@ -14,14 +18,26 @@ class App extends Component {
     }
     handleClick() {
         this.setState({isLoading: true});
-
-        // This probably where you would have an `ajax` call
-        setTimeout(() => {
-            // Completed of async action, set loading state back
-            this.setState({isLoading: false});
-        }, 2000);
+        var self = this;
+        axios.get('getServerConfig').then(function(response) {
+            self.setState({isLoading: false, websocket: response.webSocketUrl});
+        }).catch(function() {
+            self.setState({isLoading: false});
+        })
     }
+
+    handleData(data) {
+        let result = JSON.parse(data);
+        this.setState({
+            count: this.state.count + result.movement
+        });
+    }
+
     render() {
+        var websocket = this.state.websocket;
+        if (websocket) {
+            websocket = 'ws:' + websocket + '/live/product/12345/';
+        }
         return (
             <div className="App">
                 <div className="App-header">
@@ -35,8 +51,15 @@ class App extends Component {
                 </p>
                 <Button bsStyle="primary" onClick={() => this.handleClick()}>
                     {(this.state.isLoading) && (<FontAwesome name='spinner' spin/>)}
-                    Click
+                    LogIn
                 </Button>
+                {
+                 websocket &&
+                  <Websocket
+                  url={websocket}
+                  onMessage={this.handleData.bind(this)}/>
+                 }
+
             </div>
         );
     }
