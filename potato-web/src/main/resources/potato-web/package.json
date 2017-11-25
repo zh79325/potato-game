@@ -28,6 +28,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build",
-    "deploy": "webpack -p --config webpack.config.js"
+    "deploy": "webpack -p --config webpack-deploy.config.js"
   }
 }
