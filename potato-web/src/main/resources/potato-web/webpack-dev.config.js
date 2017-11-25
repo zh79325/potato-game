@@ -2,7 +2,7 @@
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var path = require('path');
 var webpack = require('webpack');
@@ -16,13 +16,15 @@ var BUILD_DIR = path.resolve(__dirname,
 
 // the path(s) that should be cleaned
 let pathsToClean = [
-   'public'
+   'public',
+   'index.html',
+   'favicon.ico'
 ]
 
 // the clean options to use
 let cleanOptions = {
    root: BUILD_DIR,
-   exclude: ['index.html','favicon.icon'],
+   exclude: [],
    verbose: true,
    dry: false
 }
@@ -41,11 +43,10 @@ module.exports = { 
       extensions: ['.js', '.jsx']
    },
    module: {   
-      loaders: [ {
+      loaders: [{
          test: /\.css$/, // Only .css files
          loader: 'style-loader!css-loader' // Run both loaders
-      }
-      , {
+      }, {
          test: /\.(svg)$/i,
          loader: "file-loader?name=public/svg/[name].[ext]"
       }, {
@@ -64,8 +65,8 @@ module.exports = { 
       }],
    },
    plugins: [
-      new CleanWebpackPlugin(pathsToClean, cleanOptions),
-      new webpack.optimize.UglifyJsPlugin(),
+      // new CleanWebpackPlugin(pathsToClean, cleanOptions),
+      // new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
          names: 'vendors',
          filename: 'public/common.js',
@@ -75,6 +76,9 @@ module.exports = { 
          $: "jquery",
          jQuery: "jquery"
       }),
-      // new HtmlWebpackPlugin(),
+      new HtmlWebpackPlugin({
+         template: 'template/index.html',
+      }),
+      new CopyWebpackPlugin(['template/favicon.ico'], {})
    ]
 };
