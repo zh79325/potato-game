@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "expose-loader": "^0.7.4",
+    "jquery": "^3.2.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-scripts": "0.9.5",
