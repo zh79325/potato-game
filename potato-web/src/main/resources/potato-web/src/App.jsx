@@ -9,7 +9,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            isLoading: true
+            isLoading: false
         };
     }
     handleClick() {
@@ -37,7 +37,7 @@ class App extends Component {
                     and save to reload.
                 </p>
                 <Button bsStyle="primary" onClick={() => this.handleClick()}>
-                    <FontAwesome name='rocket' size='2x' spin/> {status}
+                    {(this.state.isLoading) && (<FontAwesome name='spinner' spin/>)}
                     Click
                 </Button>
             </div>
