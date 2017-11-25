@@ -1,21 +1,24 @@
+'use strict';
 var path = require('path');
 var webpack = require('webpack');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
-var BUILD_DIR = path.resolve(__dirname,
-   '../static/public');
+var RESOURCE_DIR = path.resolve(__dirname,
+   '../static');
+
+var BUILD_DIR = path.resolve(RESOURCE_DIR,
+   'public');
 
 // the path(s) that should be cleaned
 let pathsToClean = [
-   'dist',
-   'build'
+   'public'
 ]
 
 // the clean options to use
 let cleanOptions = {
-   root: BUILD_DIR,
+   root: RESOURCE_DIR,
    exclude: ['shared.js'],
    verbose: true,
    dry: false
