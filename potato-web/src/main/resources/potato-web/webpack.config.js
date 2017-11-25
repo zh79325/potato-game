@@ -26,13 +26,16 @@ let cleanOptions = {
 
 module.exports = { 
    entry: {
-      app: './src/index.js',
-      admin: './src/admin.js',
-      vendors: ['react'],
+      app: './src/index.jsx',
+      admin: './src/admin.jsx',
+      vendors: ['react', 'bootstrap'],
    },
    output: {
       path: BUILD_DIR,
       filename: 'js/[name].js'
+   },
+   resolve: {
+      extensions: ['.js', '.jsx']
    },
    module: {   
       loaders: [{
@@ -48,6 +51,9 @@ module.exports = { 
       }, {
          test: /\.(jpe?g|png|gif|svg)$/i,
          loader: "file-loader?name=../public/images/[name].[ext]"
+      }, {
+         test: /\.(eot|svg|ttf|woff|woff2)$/,
+         loader: 'file-loader?name=../public/fonts/[name].[ext]'
       }] 
    },
    plugins: [
