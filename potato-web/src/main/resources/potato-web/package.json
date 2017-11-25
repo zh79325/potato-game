@@ -5,11 +5,13 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "expose-loader": "^0.7.4",
+    "fontawesome": "^4.7.2",
     "jquery": "^3.2.1",
     "react": "^16.1.1",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
-    "react-scripts": "0.9.5",
-    "reactstrap": "^5.0.0-alpha.4"
+    "react-fontawesome": "^1.6.1",
+    "react-scripts": "0.9.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -29,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "dev": "webpack-dev-server --config webpack-dev.config.js --devtool eval --port 3333 --progress --colors --hot --content-base build",
+    "dev": "webpack-dev-server --config webpack-deploy.config.js --devtool eval --port 3333 --progress --colors --hot --content-base build",
     "deploy": "webpack -p --config webpack-deploy.config.js"
   }
 }

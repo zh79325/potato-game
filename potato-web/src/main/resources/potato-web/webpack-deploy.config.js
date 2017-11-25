@@ -1,13 +1,20 @@
 'use strict';
 
+var path = require('path');
+var webpack = require('webpack');
+
+
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
-var path = require('path');
-var webpack = require('webpack');
+
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+
+
+var isDevServer = path.basename(require.main.filename) === 'webpack-dev-server.js';
 
 
 var BUILD_DIR = path.resolve(__dirname,
@@ -29,11 +36,34 @@ let cleanOptions = {
    dry: false
 }
 
+
+var clean = new CleanWebpackPlugin(pathsToClean, cleanOptions);
+var plugins = [
+
+   new webpack.optimize.UglifyJsPlugin(),
+   new webpack.optimize.CommonsChunkPlugin({
+      names: 'vendors',
+      filename: 'public/common.js',
+      minChunks: Infinity
+   }),
+   new HtmlWebpackPlugin({
+      template: 'template/index.html',
+   }),
+   new CopyWebpackPlugin(['template/favicon.ico', {
+      from: 'template/lib',
+      to: 'public/lib'
+   }], {})
+];
+if (!isDevServer) {
+   plugins.push(clean);
+}
+
+
 module.exports = { 
    entry: {
       app: './src/index.jsx',
       admin: './src/admin.jsx',
-      vendors: ['react', 'jquery', 'bootstrap', 'reactstrap'],
+      vendors: ['react', 'react-bootstrap','react-fontawesome'],
    },
    output: {
       path: BUILD_DIR,
@@ -64,21 +94,5 @@ module.exports = { 
          }
       }],
    },
-   plugins: [
-      new CleanWebpackPlugin(pathsToClean, cleanOptions),
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.CommonsChunkPlugin({
-         names: 'vendors',
-         filename: 'public/common.js',
-         minChunks: Infinity
-      }),
-      new webpack.ProvidePlugin({
-         $: "jquery",
-         jQuery: "jquery"
-      }),
-      new HtmlWebpackPlugin({
-         template: 'template/index.html',
-      }),
-      new CopyWebpackPlugin(['template/favicon.ico'], {})
-   ]
+   plugins: plugins
 };
