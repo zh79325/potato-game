@@ -22,9 +22,6 @@ class App extends Component {
         }, 2000);
     }
     render() {
-        const status = this.state.isLoading
-            ? 'Loading... '
-            : 'Loading state ';
         return (
             <div className="App">
                 <div className="App-header">
