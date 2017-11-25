@@ -28,7 +28,7 @@ module.exports = { 
    entry: {
       app: './src/index.jsx',
       admin: './src/admin.jsx',
-      vendors: ['react', 'bootstrap'],
+      vendors: ['react', 'bootstrap','reactstrap'],
    },
    output: {
       path: BUILD_DIR,
