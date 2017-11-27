@@ -1,5 +1,6 @@
-package com.potato.web;
+package com.potato.controller;
 
+import com.potato.core.config.GameServerConfig;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  */
 @RestController
+@RequestMapping("api")
 public class ConfigController {
-    @RequestMapping(value = "/getServerConfig", method = RequestMethod.GET)
+    @RequestMapping(value = "getServerConfig", method = RequestMethod.GET)
     public ServerConfig getServerConfig()   {
         ServerConfig config = new ServerConfig();
-        config.setWebsocket("localhost:10001");
+        config.setWebsocket("localhost:"+ GameServerConfig.WEB_SOCKET_PORT+"/websocket");
         return config;
     }
 }

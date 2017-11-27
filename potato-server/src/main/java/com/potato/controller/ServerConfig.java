@@ -1,4 +1,4 @@
-package com.potato.web;
+package com.potato.controller;
 
 /**
  * Author     : zh_zhou@Ctrip.com

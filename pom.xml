@@ -32,13 +32,18 @@
                 <scope>import</scope>
             </dependency>
 
+
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${springboot.version}</version>
-                <optional>true</optional>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>2.0.0.M4</version>
             </dependency>
 
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.9.0</version>
+            </dependency>
 
             <!-- SLF4J to LOG4J dependency -->
             <dependency>
@@ -46,7 +51,11 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.41</version>
+            </dependency>
 
             <dependency>
                 <groupId>junit</groupId>
@@ -58,7 +67,37 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>4.0.10.Final</version>
+                <version>5.0.0.Alpha2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.12</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetlang</groupId>
+                <artifactId>jetlang</artifactId>
+                <version>0.2.9</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
             </dependency>
 
             <dependency>

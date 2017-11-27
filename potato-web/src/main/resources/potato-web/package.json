@@ -33,7 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "dev": "webpack-dev-server --config webpack-deploy.config.js --devtool  eval-source-map   --port 3333 --progress --colors --hot --content-base build",
+    "dev": "webpack-dev-server --config webpack-deploy.config.js --devtool  eval   --port 3333 --progress --colors --hot --content-base build",
     "deploy": "webpack -p --config webpack-deploy.config.js"
   }
 }

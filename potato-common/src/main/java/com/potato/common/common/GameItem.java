@@ -1,4 +1,4 @@
-package com.game.potato.common;
+package com.potato.common.common;
 
 /**
  * Author     : zh_zhou@Ctrip.com
@@ -8,19 +8,19 @@ package com.game.potato.common;
  * Description:
  */
 public class GameItem {
-    long id;
+    String id;
     String name;
     String description;
     int level;
     //品质
     int quality;
 
-    public int getQuality() {
-        return quality;
+    public String getId() {
+        return id;
     }
 
-    public void setQuality(int quality) {
-        this.quality = quality;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -45,5 +45,13 @@ public class GameItem {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 }

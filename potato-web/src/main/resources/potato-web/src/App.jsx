@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'react-bootstrap';
+import {Button,FormControl,ControlLabel} from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,31 +13,62 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            isLoading: false
+            isLoading: false,
+            logs: ['等待连接']
         };
     }
     handleClick() {
         this.setState({isLoading: true});
         var self = this;
-        axios.get('getServerConfig').then(function(response) {
-            self.setState({isLoading: false, websocket: response.webSocketUrl});
+
+        this.addLog("请求服务器信息");
+        axios.get('api/getServerConfig').then(function(response) {
+            var url = response.data.websocket;
+            self.addLog("请求成功=>" + url);
+            self.connection = new WebSocket('ws://' + url+"?uid="+self.state.username);
+            self.connection.onmessage = e => self.onMessage(e);
+            self.connection.onclose = e => self.onClose(e);
+            self.connection.onopen = e => self.onOpen(e);
+            self.connection.onerror = e => self.onError(e);
         }).catch(function() {
+            self.addLog("请求失败");
             self.setState({isLoading: false});
         })
     }
 
-    handleData(data) {
+    addLog(log) {
+        var logs = this.state.logs;
+        logs.push(log);
+        this.setState({logs: logs});
+    }
+
+    onMessage(data) {
         let result = JSON.parse(data);
         this.setState({
             count: this.state.count + result.movement
         });
     }
 
+    onOpen(e) {
+        this.addLog("websocket connected");
+        this.setState({isLoading: false});
+    }
+
+    onClose(e) {
+        this.addLog("websocket closed");
+        this.setState({isLoading: false});
+    }
+
+    onError(e) {
+        this.addLog("websocket error " + e);
+        this.setState({isLoading: false});
+    }
+
     render() {
-        var websocket = this.state.websocket;
-        if (websocket) {
-            websocket = 'ws:' + websocket + '/live/product/12345/';
-        }
+        var logs = this.state.logs;
+        const listItems = logs.map((log, i) => <li key={i}>
+            {log}
+        </li>);
         return (
             <div className="App">
                 <div className="App-header">
@@ -49,17 +80,15 @@ class App extends Component {
                     <code>src/App.js</code>
                     and save to reload.
                 </p>
+                <ControlLabel>UserName</ControlLabel>
+                <FormControl type="text" value={this.state.username} placeholder="Enter User Name"/>
                 <Button bsStyle="primary" onClick={() => this.handleClick()}>
                     {(this.state.isLoading) && (<FontAwesome name='spinner' spin/>)}
                     LogIn
                 </Button>
-                {
-                 websocket &&
-                  <Websocket
-                  url={websocket}
-                  onMessage={this.handleData.bind(this)}/>
-                 }
-
+                <ul>
+                    {listItems}
+                </ul>
             </div>
         );
     }

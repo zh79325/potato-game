@@ -44,9 +44,8 @@ let cleanOptions = {
 
 
 var clean = new CleanWebpackPlugin(pathsToClean, cleanOptions);
+var Uglify = new webpack.optimize.UglifyJsPlugin();
 var plugins = [
-
-   new webpack.optimize.UglifyJsPlugin(),
    new webpack.optimize.CommonsChunkPlugin({
       names: 'vendors',
       filename: 'public/common.js',
@@ -61,6 +60,7 @@ var plugins = [
    }], {})
 ];
 if (!isDevServer) {
+   plugins.push(Uglify);
    plugins.push(clean);
 }
 
@@ -77,6 +77,11 @@ module.exports = { 
    },
    resolve: {
       extensions: ['.js', '.jsx']
+   },
+   devServer: {
+      proxy: {
+         "/api": "http://localhost:8100"
+      }
    },
    module: {   
       loaders: [{

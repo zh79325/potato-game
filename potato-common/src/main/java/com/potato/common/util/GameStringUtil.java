@@ -1,13 +1,11 @@
-package com.game.potato.common;
+package com.potato.common.util;
 
 /**
  * Author     : zh_zhou@Ctrip.com
  * Copyright  : Ctrip Copyright (c) 2017
  * Company    : Ctrip
- * Create at  : 2017/11/23 18:07
+ * Create at  : 2017/11/23 18:04
  * Description:
  */
-public class Player {
-    String name;
-    int level;
+public class GameStringUtil {
 }
